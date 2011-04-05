@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Config\OptionsElement.cs" />
     <Compile Include="Config\PolicyDirectiveElement.cs" />
-    <Compile Include="Config\PolicySection.cs" />
+    <Compile Include="Config\ContentSecurityPolicySection.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="PolicyDirective.cs" />
     <Compile Include="PolicyHttpModule.cs" />

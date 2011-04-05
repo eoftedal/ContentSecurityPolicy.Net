@@ -13,8 +13,7 @@ namespace ContentSecurityPolicy.Net.WebTest
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var section = ConfigurationManager.GetSection("contentSecurityPolicy") as ContentSecurityPolicySection;
-            var policy = section.ToPolicy();
+            var policy = Policy.LoadFromConfig();
             Content.Text = policy.GetHeaderName() + ": " + policy.GetHeaderValue();
         }
     }

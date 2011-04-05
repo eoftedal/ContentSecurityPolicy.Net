@@ -17,12 +17,9 @@ namespace ContentSecurityPolicy.Net
         public void ApplyPolicy(object sender, EventArgs args)
         {
             var app = sender as HttpApplication;
-            if (app != null)
-            {
-                var section = (ContentSecurityPolicySection)ConfigurationManager.GetSection("contentSecurityPolicy");
-                var policy = section.ToPolicy();
-                app.Context.Response.AddHeader(policy.GetHeaderName(), policy.GetHeaderValue());
-            }
+            if (app == null) return;
+            var policy = Policy.LoadFromConfig();
+            app.Context.Response.AddHeader(policy.GetHeaderName(), policy.GetHeaderValue());
         }
 
         public void Dispose()

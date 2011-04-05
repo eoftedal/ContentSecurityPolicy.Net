@@ -1,4 +1,4 @@
-ContentSecurityPolicy.NET.suo 
+*.suo 
 bin/
 obj/
 *.user

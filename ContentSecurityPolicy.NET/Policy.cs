@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
+using ContentSecurityPolicy.Net.Config;
 
 namespace ContentSecurityPolicy.Net
 {
@@ -37,7 +39,13 @@ namespace ContentSecurityPolicy.Net
             return _policyDirectives
                 .Select(p => p.ToString())
                 .Where(s => !string.IsNullOrEmpty(s))
-                .Aggregate((s1, s2) => s1 + "; " + s2);
+                .Aggregate((s1, s2) => s1 + "; " + s2)
+                + (string.IsNullOrEmpty(ReportUri) ? "" : "; report-uri " + ReportUri);
+        }
+        public static Policy LoadFromConfig()
+        {
+            var section = (ContentSecurityPolicySection)ConfigurationManager.GetSection("contentSecurityPolicy");
+            return section.ToPolicy();
         }
     }
 }
