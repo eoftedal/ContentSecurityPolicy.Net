@@ -8,15 +8,15 @@ namespace ContentSecurityPolicy.Net.Config
 {
     public class OptionsElement : ConfigurationElement
     {
-        [ConfigurationProperty("AllowInlineScripts")]
+        [ConfigurationProperty("allowInlineScript")]
         public bool AllowInlineScripts
         {
-            get { return "true".Equals(this["AllowInlineScripts"]); }
+            get { return (bool)this["allowInlineScript"]; }
         }
-        [ConfigurationProperty("AllowScriptEval")]
+        [ConfigurationProperty("allowScriptEval")]
         public bool AllowScriptEval
         {
-            get { return "true".Equals(this["AllowScriptEval"]); }
+            get { return (bool)this["allowScriptEval"]; }
         }
 
         public OptionsDirective AsDirective()

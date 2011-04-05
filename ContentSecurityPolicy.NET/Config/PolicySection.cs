@@ -8,73 +8,73 @@ namespace ContentSecurityPolicy.Net.Config
 {
     public class ContentSecurityPolicySection : ConfigurationSection
     {
-        [ConfigurationProperty("ReportOnly")]
+        [ConfigurationProperty("reportOnly")]
         public bool ReportOnly
         {
-            get { return "true".Equals(this["ReportOnly"]); }
+            get { return "true".Equals(this["reportOnly"]); }
         }
-        [ConfigurationProperty("ReportUri")]
+        [ConfigurationProperty("reportUri")]
         public string ReportUri
         {
-            get { return (string)this["ReportUri"]; }
+            get { return (string)this["reportUri"]; }
         }
 
 
-        [ConfigurationProperty("Options", IsRequired = false)]
+        [ConfigurationProperty("options", IsRequired = false)]
         public OptionsElement Options
         {
-            get { return (OptionsElement)this["Options"]; }
+            get { return (OptionsElement)this["options"]; }
         }
 
-        [ConfigurationProperty("AllowedSources", IsRequired = false)]
+        [ConfigurationProperty("allowedSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedSources"]; }
         }
-        [ConfigurationProperty("AllowedScriptSources", IsRequired = false)]
+        [ConfigurationProperty("allowedScriptSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedScriptSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedScriptSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedScriptSources"]; }
         }
-        [ConfigurationProperty("AllowedImageSources", IsRequired = false)]
+        [ConfigurationProperty("allowedImageSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedImageSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedImageSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedImageSources"]; }
         }
-        [ConfigurationProperty("AllowedMediaSources", IsRequired = false)]
+        [ConfigurationProperty("allowedMediaSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedMediaSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedMediaSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedMediaSources"]; }
         }
-        [ConfigurationProperty("AllowedObjectSources", IsRequired = false)]
+        [ConfigurationProperty("allowedObjectSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedObjectSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedObjectSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedObjectSources"]; }
         }
-        [ConfigurationProperty("AllowedFrameSources", IsRequired = false)]
+        [ConfigurationProperty("allowedFrameSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedFrameSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedFrameSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedFrameSources"]; }
         }
-        [ConfigurationProperty("AllowedFontSources", IsRequired = false)]
+        [ConfigurationProperty("allowedFontSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedFontSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedFontSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedFontSources"]; }
         }
-        [ConfigurationProperty("AllowedXhrSources", IsRequired = false)]
+        [ConfigurationProperty("allowedXhrSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedXhrSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedXhrSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedXhrSources"]; }
         }
-        [ConfigurationProperty("AllowedFrameAncestors", IsRequired = false)]
+        [ConfigurationProperty("allowedFrameAncestors", IsRequired = false)]
         public PolicyDirectiveElement AllowedFrameAncestors
         {
-            get { return (PolicyDirectiveElement)this["AllowedFrameAncestors"]; }
+            get { return (PolicyDirectiveElement)this["allowedFrameAncestors"]; }
         }
-        [ConfigurationProperty("AllowedStyleSources", IsRequired = false)]
+        [ConfigurationProperty("allowedStyleSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedStyleSources
         {
-            get { return (PolicyDirectiveElement)this["AllowedStyleSources"]; }
+            get { return (PolicyDirectiveElement)this["allowedStyleSources"]; }
         }
 
         public Policy ToPolicy()

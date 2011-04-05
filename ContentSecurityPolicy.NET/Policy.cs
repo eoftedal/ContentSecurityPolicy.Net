@@ -36,7 +36,7 @@ namespace ContentSecurityPolicy.Net
         {
             return _policyDirectives
                 .Select(p => p.ToString())
-                .Where(s => string.IsNullOrEmpty(s))
+                .Where(s => !string.IsNullOrEmpty(s))
                 .Aggregate((s1, s2) => s1 + "; " + s2);
         }
     }

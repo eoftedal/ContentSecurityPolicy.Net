@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ContentSecurityPolicy.Net</RootNamespace>
-    <AssemblyName>ContentSecurityPolicy.NET</AssemblyName>
+    <AssemblyName>ContentSecurityPolicy.Net</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,7 +47,7 @@
     <Compile Include="Config\PolicySection.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="PolicyDirective.cs" />
-    <Compile Include="PolicyModule.cs" />
+    <Compile Include="PolicyHttpModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

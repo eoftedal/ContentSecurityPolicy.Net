@@ -8,10 +8,10 @@ namespace ContentSecurityPolicy.Net.Config
 {
     public class PolicyDirectiveElement : ConfigurationElementCollection
     {
-        [ConfigurationProperty("AllowSelf")]
+        [ConfigurationProperty("allowSelf")]
         public bool AllowSelf
         {
-            get { return "true".Equals(this["AllowSelf"]); }
+            get { return (bool)this["allowSelf"]; }
         }
         protected override ConfigurationElement CreateNewElement()
         {
@@ -38,10 +38,10 @@ namespace ContentSecurityPolicy.Net.Config
 
     public class SourceElement : ConfigurationElement
     {
-        [ConfigurationProperty("Source", IsRequired = true)]
+        [ConfigurationProperty("source", IsRequired = true)]
         public string Source
         {
-            get { return (string)this["Source"]; }
+            get { return (string)this["source"]; }
         }
     }
 }

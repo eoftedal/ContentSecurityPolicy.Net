@@ -19,9 +19,17 @@ namespace ContentSecurityPolicy.Net
         }
         public override string ToString()
         {
-            return DirectiveName + " "
-                + _allowedSourceList.Aggregate((s1, s2) => s1 + " " + s2);
+            if (!IncludeSelf && _allowedSourceList.Count() == 0) return "";
+            return DirectiveName 
+                + (IncludeSelf ? " 'self'" : "")
+                + ImplodeSources();
         }
+        private string ImplodeSources()
+        {
+            if (_allowedSourceList.Count() == 0) return "";
+            return " " + _allowedSourceList.Aggregate((s1, s2) => s1 + " " + s2);
+        }
+
         public void AddSource(string source)
         {
             _allowedSourceList.Add(source);
@@ -40,4 +48,6 @@ namespace ContentSecurityPolicy.Net
                 + (AllowEvalScript ? "eval-script" : "");
         }
     }
+
+
 }

@@ -1,1 +1,4 @@
 ContentSecurityPolicy.NET.suo 
+bin/
+obj/
+*.user

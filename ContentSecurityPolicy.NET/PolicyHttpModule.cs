@@ -8,7 +8,7 @@ using ContentSecurityPolicy.Net.Config;
 
 namespace ContentSecurityPolicy.Net
 {
-    public class PolicyModule : IHttpModule
+    public class PolicyHttpModule : IHttpModule
     {
         public void Init(HttpApplication application)
         {
@@ -19,7 +19,7 @@ namespace ContentSecurityPolicy.Net
             var app = sender as HttpApplication;
             if (app != null)
             {
-                var section = (ContentSecurityPolicySection)ConfigurationManager.GetSection("ContentSecurityPolicy");
+                var section = (ContentSecurityPolicySection)ConfigurationManager.GetSection("contentSecurityPolicy");
                 var policy = section.ToPolicy();
                 app.Context.Response.AddHeader(policy.GetHeaderName(), policy.GetHeaderValue());
             }
