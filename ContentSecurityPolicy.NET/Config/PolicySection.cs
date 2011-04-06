@@ -11,7 +11,7 @@ namespace ContentSecurityPolicy.Net.Config
         [ConfigurationProperty("reportOnly")]
         public bool ReportOnly
         {
-            get { return "true".Equals(this["reportOnly"]); }
+            get { return (bool)this["reportOnly"]; }
         }
         [ConfigurationProperty("reportUri")]
         public string ReportUri
