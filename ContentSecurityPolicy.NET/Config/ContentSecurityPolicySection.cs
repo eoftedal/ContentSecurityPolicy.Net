@@ -79,9 +79,7 @@ namespace ContentSecurityPolicy.Net.Config
 
         public Policy ToPolicy()
         {
-            var policy = new Policy();
-            policy.ReportOnlyMode = ReportOnly;
-            policy.ReportUri = ReportUri;
+            var policy = new Policy {ReportOnlyMode = ReportOnly, ReportUri = ReportUri};
             if (Options != null)
             {
                 policy.AddDirective(Options.AsDirective());

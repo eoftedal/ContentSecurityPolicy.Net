@@ -5,8 +5,9 @@ using System.Text;
 
 namespace ContentSecurityPolicy.Net
 {
-    public class PolicyDirective
+    public abstract class PolicyDirective
     {}
+
     public class UriPolicyDirective : PolicyDirective
     {
         private readonly List<string> _allowedSourceList = new List<string>();
@@ -19,11 +20,17 @@ namespace ContentSecurityPolicy.Net
         }
         public override string ToString()
         {
-            if (!IncludeSelf && _allowedSourceList.Count() == 0) return "";
+            if (HasNoSources()) return "";
             return DirectiveName 
                 + (IncludeSelf ? " 'self'" : "")
                 + ImplodeSources();
         }
+
+        private bool HasNoSources()
+        {
+            return !IncludeSelf && _allowedSourceList.Count() == 0;
+        }
+
         private string ImplodeSources()
         {
             if (_allowedSourceList.Count() == 0) return "";
@@ -35,6 +42,7 @@ namespace ContentSecurityPolicy.Net
             _allowedSourceList.Add(source);
         }
     }
+
     public class OptionsDirective : PolicyDirective
     {
         public bool AllowInlineScript { get; set; }
