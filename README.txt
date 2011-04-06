@@ -10,7 +10,7 @@ Verified via webtest project so far:
 
 Web.config policy:
 ------------------
-  <contentSecurityPolicy reportOnly="true">
+  <contentSecurityPolicy reportOnly="true" reportUri="csp-reporting/">
     <options allowInlineScript="true" />
     <allowedSources allowSelf="true" />
     <allowedImageSources>
@@ -27,3 +27,27 @@ Web.config for HttpModule:
         <add name="ContentSecurityPolicyHttpModule" type="ContentSecurityPolicy.Net.PolicyHttpModule, ContentSecurityPolicy.Net"/>
       </httpModules>
 
+
+Abstract HTTP handler for receiving CSP failure reports
+-------------------------------------------------------
+Code for handler:
+
+    public class ReportHandler : AbstractReportHandler
+    {
+        protected override void HandleReport(Report report)
+        {
+            //Store data here
+        }
+    }
+
+
+Web.config policy definition for reportUri:
+
+      <contentSecurityPolicy reportUri="csp-reporting/">
+
+
+Web.config httphandler config:
+
+      <httpHandlers>
+        <add path="csp-reporting/" verb="POST" type="ContentSecurityPolicy.Net.WebTest.ReportHandler, ContentSecurityPolicy.Net.WebTest"/>
+      </httpHandlers>
