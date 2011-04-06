@@ -6,11 +6,11 @@
 <head runat="server">
     <title></title>
     <style>
-        img { width: 100px; }
+        img, object { width: 100px; }
         table { border: 1px solid #444; margin-top: 10px;}
         td { border: 1px solid #444; padding: 5px 20px 5px 20px; } 
         td.hide { color: #fff; }   
-        iframe { width: 100px; height: 3em; }
+        iframe { width: 100px; height: 1em; border: 0px;}
     </style>
     <link rel="Stylesheet" type="text/css" href="http://erlend.oftedal.no/csp-test/shouldWork.css" />
     <link rel="Stylesheet" type="text/css" href="http://www.oftedal.no/~erlend/csp-test/shouldNotWork.css" />
@@ -28,7 +28,10 @@
                 <td>Image</td><td><img src="https://d3nwyuy0nl342s.cloudfront.net/images/modules/header/logov3-hover.png" /></td><td><img src="http://www.google.com/images/logos/ps_logo2.png" /></td>
             </tr>
             <tr>
-                <td>Script</td><td id="jsYes">- no result -</td><td id="jsNo">- no result -</td>
+                <td>Object</td><td><object data="http://www.google.com/images/logos/ps_logo2.png" /><td><object data="https://d3nwyuy0nl342s.cloudfront.net/images/modules/header/logov3-hover.png" /></td></td>
+            </tr>
+            <tr>
+                <td>Script</td><td id="jsYes"></td><td id="jsNo"></td>
             </tr>
             <tr>
                 <td>Style</td><td class="hide" id="cssYes">Worked</td><td class="hide" id="cssNo">Worked</td>
