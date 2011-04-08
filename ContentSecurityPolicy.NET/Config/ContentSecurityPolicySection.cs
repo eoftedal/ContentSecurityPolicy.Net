@@ -14,11 +14,10 @@ namespace ContentSecurityPolicy.Net.Config
             get { return (bool)this["reportOnly"]; }
         }
         [ConfigurationProperty("reportUri")]
-        public string ReportUri
+        public Uri ReportUri
         {
-            get { return (string)this["reportUri"]; }
+            get { return (Uri)this["reportUri"]; }
         }
-
 
         [ConfigurationProperty("options", IsRequired = false)]
         public OptionsElement Options

@@ -10,7 +10,7 @@ namespace ContentSecurityPolicy.Net
 
     public class UriPolicyDirective : PolicyDirective
     {
-        private readonly List<string> _allowedSourceList = new List<string>();
+        private readonly List<Source> _allowedSourceList = new List<Source>();
         private string DirectiveName { get; set; }
         public bool IncludeSelf { get; set; }
 
@@ -34,10 +34,12 @@ namespace ContentSecurityPolicy.Net
         private string ImplodeSources()
         {
             if (_allowedSourceList.Count() == 0) return "";
-            return " " + _allowedSourceList.Aggregate((s1, s2) => s1 + " " + s2);
+            return " " + _allowedSourceList
+                .Select(s => s.HostPattern)
+                .Aggregate((s1, s2) => s1 + " " + s2);
         }
 
-        public void AddSource(string source)
+        public void AddSource(Source source)
         {
             _allowedSourceList.Add(source);
         }

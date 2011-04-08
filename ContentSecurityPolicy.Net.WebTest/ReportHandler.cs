@@ -10,7 +10,7 @@ namespace ContentSecurityPolicy.Net.WebTest
     {
         protected override void HandleReport(Report report)
         {
-            
+            //Handle report here
         }
     }
 }

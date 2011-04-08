@@ -13,7 +13,7 @@ namespace ContentSecurityPolicy.Net
         private const string _policyHeader = "X-Content-Security-Policy";
         private const string _reportingOnlyPolicyHeader = _policyHeader + "-Report-Only";
         private readonly List<PolicyDirective> _policyDirectives = new List<PolicyDirective>();
-        public string ReportUri { get; set; }
+        public Uri ReportUri { get; set; }
         public bool ReportOnlyMode { get; set; }
 
         public void AddDirective(PolicyDirective directive)
@@ -40,7 +40,7 @@ namespace ContentSecurityPolicy.Net
                 .Select(p => p.ToString())
                 .Where(s => !string.IsNullOrEmpty(s))
                 .Aggregate((s1, s2) => s1 + "; " + s2)
-                + (string.IsNullOrEmpty(ReportUri) ? "" : "; report-uri " + ReportUri);
+                + (ReportUri == null ? "" : "; report-uri " + ReportUri);
         }
         public static Policy LoadFromConfig()
         {

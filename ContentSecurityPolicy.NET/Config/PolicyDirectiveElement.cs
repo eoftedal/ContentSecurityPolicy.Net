@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
+using System.ComponentModel;
 
 namespace ContentSecurityPolicy.Net.Config
 {
@@ -22,7 +23,7 @@ namespace ContentSecurityPolicy.Net.Config
             return ((SourceElement)element).Source;
         }
     }
-    public static class PolicyDiretiveElementHelper {
+    internal static class PolicyDiretiveElementHelper {
         public static PolicyDirective AsDirective(this PolicyDirectiveElement element, string name)
         {
             if (element == null) return null;
@@ -36,12 +37,5 @@ namespace ContentSecurityPolicy.Net.Config
         }
     }
 
-    public class SourceElement : ConfigurationElement
-    {
-        [ConfigurationProperty("source", IsRequired = true)]
-        public string Source
-        {
-            get { return (string)this["source"]; }
-        }
-    }
+   
 }
