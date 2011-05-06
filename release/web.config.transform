@@ -2,14 +2,17 @@
 	<configSections>
 		<section name="contentSecurityPolicy" type="ContentSecurityPolicy.Net.Config.ContentSecurityPolicySection"/>
 	</configSections>
+	<!-- <contentSecurityPolicy reportUri="csp-reporting/"> -->
 	<contentSecurityPolicy reportUri="csp-reporting/">
 		<options/>
 		<allowedSources allowSelf="true" />
 	</contentSecurityPolicy>
 	<system.web>
+		<!--
 		<httpHandlers>
-			<add path="csp-reporting/" verb="POST" type="ContentSecurityPolicy.Net.WebTest.ReportHandler, ContentSecurityPolicy.Net.WebTest"/>
+			<add path="csp-reporting/" verb="POST" type="full typename of report handler implementation, packagename"/>
 		</httpHandlers>
+		-->
 		<httpModules>
 			<add name="ContentSecurityPolicyHttpModule" type="ContentSecurityPolicy.Net.PolicyHttpModule, ContentSecurityPolicy.Net"/>
 		</httpModules>
