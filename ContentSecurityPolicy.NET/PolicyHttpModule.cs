@@ -20,6 +20,7 @@ namespace ContentSecurityPolicy.Net
             if (app == null) return;
             var policy = Policy.LoadFromConfig();
             app.Context.Response.AddHeader(policy.GetHeaderName(), policy.GetHeaderValue());
+            app.Context.Response.AddHeader(policy.GetHeaderNameChrome(), policy.GetHeaderValue());
         }
 
         public void Dispose()

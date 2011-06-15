@@ -10,8 +10,9 @@ namespace ContentSecurityPolicy.Net
 {
     public class Policy
     {
+        private const string _policyHeaderChrome = "X-WebKit-CSP";
         private const string _policyHeader = "X-Content-Security-Policy";
-        private const string _reportingOnlyPolicyHeader = _policyHeader + "-Report-Only";
+        private const string _reportingOnlyPolicyHeader = "-Report-Only";
         private readonly List<PolicyDirective> _policyDirectives = new List<PolicyDirective>();
         public Uri ReportUri { get; set; }
         public bool ReportOnlyMode { get; set; }
@@ -29,11 +30,29 @@ namespace ContentSecurityPolicy.Net
                 GetHeaderValue()
                 );
         }
+        public KeyValuePair<string, string> GetHeaderChrome()
+        {
+            return new KeyValuePair<string, string>(
+                GetHeaderNameChrome(),
+                GetHeaderValue()
+                );
+        }
 
+        public string GetHeaderNameChrome()
+        {
+            return _policyHeaderChrome + GetReportingPart();
+        }
+        
         public string GetHeaderName()
         {
-            return ReportOnlyMode ? _reportingOnlyPolicyHeader : _policyHeader;
+            return _policyHeader + GetReportingPart();
         }
+
+        private string GetReportingPart()
+        {
+            return ReportOnlyMode ? _reportingOnlyPolicyHeader : "";
+        }
+
         public string GetHeaderValue()
         {
             return _policyDirectives
