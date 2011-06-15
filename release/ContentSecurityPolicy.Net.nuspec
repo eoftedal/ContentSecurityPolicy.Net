@@ -2,12 +2,14 @@
 <package> 
   <metadata> 
     <id>ContentSecurityPolicy.Net</id> 
-    <version>1.0.2</version> 
+    <version>1.0.4</version> 
     <authors>Erlend Oftedal</authors>
+    <owners>Erlend Oftedal</owners>
     <description>Support for Content Security Policy for ASP.NET applications.</description> 
     <language>en-US</language>
     <licenseUrl>http://www.opensource.org/licenses/lgpl-3.0</licenseUrl>
     <projectUrl>https://github.com/eoftedal/ContentSecurityPolicy.Net</projectUrl>
+    <tags>security csp</tags>
   </metadata> 
 </package>
 

@@ -2,6 +2,7 @@ Goal:
 -----
 - Allow the specification of the content security policy as a part of web.config
 - Allow the policy to be used as an HttpModule so there is no need to add to pages etc. to enable it
+- 2011-06-15: Support the Chrome version as well, allthough this support is a bit experimental from Chrome's side
 
 Testing
 -------
