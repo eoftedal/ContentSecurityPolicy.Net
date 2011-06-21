@@ -14,7 +14,7 @@ namespace ContentSecurityPolicy.Net.WebTest
         protected void Page_Load(object sender, EventArgs e)
         {
             var policy = Policy.LoadFromConfig();
-            Content.Text = policy.GetHeaderName() + ": " + policy.GetHeaderValue();
+            Content.Text = policy.GetHeaderName(Request.UserAgent) + ": " + policy.GetHeaderValue(Request.UserAgent);
         }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="Reports\AbstractReportHandler.cs" />
     <Compile Include="Reports\Report.cs" />
     <Compile Include="Source.cs" />
+    <Compile Include="Useragent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

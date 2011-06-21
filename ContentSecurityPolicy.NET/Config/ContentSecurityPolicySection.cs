@@ -83,7 +83,7 @@ namespace ContentSecurityPolicy.Net.Config
             {
                 policy.AddDirective(Options.AsDirective());
             }
-            policy.AddDirective(AllowedSources.AsDirective("allow"));
+            policy.AddDirective(AllowedSources.AsDirective("default-src"));
             policy.AddDirective(AllowedFontSources.AsDirective("font-src"));
             policy.AddDirective(AllowedFrameAncestors.AsDirective("frame-ancestors"));
             policy.AddDirective(AllowedFrameSources.AsDirective("frame-src"));

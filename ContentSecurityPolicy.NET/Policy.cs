@@ -23,44 +23,63 @@ namespace ContentSecurityPolicy.Net
             _policyDirectives.Add(directive);
         }
 
-        public KeyValuePair<string, string> GetHeader()
+        public KeyValuePair<string, string> GetHeader(string useragent)
         {
             return new KeyValuePair<string, string>(
-                GetHeaderName(),
-                GetHeaderValue()
-                );
-        }
-        public KeyValuePair<string, string> GetHeaderChrome()
-        {
-            return new KeyValuePair<string, string>(
-                GetHeaderNameChrome(),
-                GetHeaderValue()
+                GetHeaderName(useragent),
+                GetHeaderValue(useragent)
                 );
         }
 
-        public string GetHeaderNameChrome()
-        {
-            return _policyHeaderChrome + GetReportingPart();
-        }
         
-        public string GetHeaderName()
+        public string GetHeaderName(string useragent)
         {
-            return _policyHeader + GetReportingPart();
+            if (new Useragent(useragent).IsChrome())
+            {
+                return _policyHeaderChrome + GetReportingPart();
+            }  
+            return _policyHeader + GetReportingPart();   
         }
+
+
 
         private string GetReportingPart()
         {
             return ReportOnlyMode ? _reportingOnlyPolicyHeader : "";
         }
 
-        public string GetHeaderValue()
+        public string GetHeaderValue(string useragent)
         {
+
             return _policyDirectives
-                .Select(p => p.ToString())
+                .OrderBy(p => p.DirectiveName == "options" ? "1" : ("2" + p.DirectiveName))
+                .Select(p => AsString(p, useragent))
                 .Where(s => !string.IsNullOrEmpty(s))
                 .Aggregate((s1, s2) => s1 + "; " + s2)
-                + (ReportUri == null ? "" : "; report-uri " + ReportUri);
+                + ReportUriPart;
+
         }
+        private string AsString(PolicyDirective directive, String useragent)
+        {
+            var agent = new Useragent(useragent);
+            if (agent.IsFirefox4() && directive.DirectiveName == "default-src")
+            {
+                return "allow" + directive.ToString().Substring("default-src".Length);
+            }
+            if (agent.IsFirefox() && directive.DirectiveName == "options")
+            {
+                return directive.ToString().Replace("disable-xss-protection", "inline-script");
+            }
+            return directive.ToString();
+        }
+
+        
+
+        private string ReportUriPart
+        {
+            get { return ReportUri == null ? "" : "; report-uri " + ReportUri; }
+        }
+
         public static Policy LoadFromConfig()
         {
             var section = (ContentSecurityPolicySection)ConfigurationManager.GetSection("contentSecurityPolicy");

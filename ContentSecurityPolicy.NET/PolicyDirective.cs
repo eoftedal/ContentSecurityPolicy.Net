@@ -6,12 +6,13 @@ using System.Text;
 namespace ContentSecurityPolicy.Net
 {
     public abstract class PolicyDirective
-    {}
+    {
+        public string DirectiveName { get; protected set; }
+    }
 
     public class UriPolicyDirective : PolicyDirective
     {
         private readonly List<Source> _allowedSourceList = new List<Source>();
-        private string DirectiveName { get; set; }
         public bool IncludeSelf { get; set; }
 
         public UriPolicyDirective(string directiveName)
@@ -50,11 +51,16 @@ namespace ContentSecurityPolicy.Net
         public bool AllowInlineScript { get; set; }
         public bool AllowEvalScript { get; set; }
 
+        public OptionsDirective()
+        {
+            DirectiveName = "options";
+        }
+
         public override string  ToString()
         {
  	        if (!AllowInlineScript && !AllowEvalScript) return "";
-            return "options "
-                + (AllowInlineScript ? "inline-script" : "")
+            return DirectiveName + " "
+                + (AllowInlineScript ? "disable-xss-protection" : "")
                 + (AllowEvalScript ? "eval-script" : "");
         }
     }

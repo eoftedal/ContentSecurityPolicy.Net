@@ -19,8 +19,8 @@ namespace ContentSecurityPolicy.Net
             var app = sender as HttpApplication;
             if (app == null) return;
             var policy = Policy.LoadFromConfig();
-            app.Context.Response.AddHeader(policy.GetHeaderName(), policy.GetHeaderValue());
-            app.Context.Response.AddHeader(policy.GetHeaderNameChrome(), policy.GetHeaderValue());
+            string useragent = app.Context.Request.UserAgent;
+            app.Context.Response.AddHeader(policy.GetHeaderName(useragent), policy.GetHeaderValue(useragent));
         }
 
         public void Dispose()
