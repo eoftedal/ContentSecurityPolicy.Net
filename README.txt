@@ -1,5 +1,6 @@
 Goal:
 -----
+- 2011-09-29: Support the latest version from W3C, but stay compatible with firefox - adding 'unsafe-inline' and 'unsafe-eval'
 - 2011-06-21: Support the latest version from W3C, but stay compatible with earlier versions in firefox and chrome
 - 2011-06-15: Support the Chrome version as well, allthough this support is a bit experimental from Chrome's side
 - Allow the specification of the content security policy as a part of web.config
@@ -13,12 +14,11 @@ Verified via webtest project so far:
 Web.config policy:
 ------------------
   <contentSecurityPolicy reportOnly="true" reportUri="csp-reporting/">
-    <options allowInlineScript="true" />
-    <allowedSources allowSelf="true" />
+    <allowedSources allowSelf="true" unsafeAllowInline="true" />
     <allowedImageSources>
       <add source="*" />
     </allowedImageSources>
-    <allowedScriptSources allowSelf="true">
+    <allowedScriptSources allowSelf="true" unsafeAllowEval="true">
       <add source="*.google.com" />
     </allowedScriptSources>
   </contentSecurityPolicy>

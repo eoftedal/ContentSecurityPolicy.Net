@@ -16,12 +16,28 @@ namespace ContentSecurityPolicy.Net.Reports
         {
             get { return true; }
         }
+        //"document-url=http%3A%2F%2Flocalhost%3A56536%2F&violated-directive=script-src+http%3A%2F%2Ferlend.oftedal.no"
 
         public void ProcessRequest(HttpContext context)
         {
-            var des = new DataContractJsonSerializer(typeof(CspReport));
-            var wrappedReport = des.ReadObject(context.Request.InputStream) as CspReport;
-            HandleReport(wrappedReport.Report);
+            if (new Useragent(context.Request.UserAgent).IsFirefox())
+            {
+                var des = new DataContractJsonSerializer(typeof (CspReport));
+                var wrappedReport = des.ReadObject(context.Request.InputStream) as CspReport;
+                HandleReport(wrappedReport.Report);
+            } else
+            {
+                var report = new Report();
+                using(var reader = new StreamReader(context.Request.InputStream))
+                {
+                    var urlencodedReport = reader.ReadToEnd();
+                    var parts = urlencodedReport.Split('&').Select(s => s.Split(new[] {'='}, 2)).ToDictionary(
+                        s => s[0], s => HttpUtility.UrlDecode(s[1]));
+                    report.ViolatedDirective = parts["violated-directive"];
+                    report.Request = parts["document-url"];
+                    HandleReport(report);
+                }
+            }
         }
         protected abstract void HandleReport(Report report);
     }

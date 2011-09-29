@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentSecurityPolicy.Net.W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6C860CF-2BA7-44BB-AA17-081E9F31820F}"
 	ProjectSection(SolutionItems) = preProject
+		release\ContentSecurityPolicy.Net.nuspec = release\ContentSecurityPolicy.Net.nuspec
 		README.txt = README.txt
+		release\content\web.config.transform = release\content\web.config.transform
 	EndProjectSection
 EndProject
 Global

@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\UnsafeInlineDirectiveElement.cs" />
     <Compile Include="Config\OptionsElement.cs" />
     <Compile Include="Config\PolicyDirectiveElement.cs" />
     <Compile Include="Config\ContentSecurityPolicySection.cs" />
+    <Compile Include="Config\ScriptDirectiveElement.cs" />
     <Compile Include="Config\SourceElement.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="PolicyDirective.cs" />

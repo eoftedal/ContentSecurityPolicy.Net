@@ -19,9 +19,5 @@ namespace ContentSecurityPolicy.Net.Config
             get { return (bool)this["allowScriptEval"]; }
         }
 
-        public OptionsDirective AsDirective()
-        {
-            return new OptionsDirective { AllowEvalScript = AllowScriptEval, AllowInlineScript = AllowInlineScripts };
-        }
     }
 }

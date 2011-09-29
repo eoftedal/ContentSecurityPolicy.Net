@@ -22,18 +22,28 @@ namespace ContentSecurityPolicy.Net.Config
         {
             return ((SourceElement)element).Source;
         }
+        public virtual PolicyDirective ToDirective(String name)
+        {
+            var  directive = new UriPolicyDirective(name);
+            AddSourcesAndSelf(directive);
+            return directive;
+
+        }
+
+        protected void AddSourcesAndSelf(UriPolicyDirective directive)
+        {
+            foreach (SourceElement source in this)
+            {
+                directive.AddSource(source.Source);
+            }
+            directive.IncludeSelf = AllowSelf;
+        }
     }
     internal static class PolicyDiretiveElementHelper {
         public static PolicyDirective AsDirective(this PolicyDirectiveElement element, string name)
         {
             if (element == null) return null;
-            var directive =  new UriPolicyDirective(name);
-            foreach (SourceElement source in element)
-            {
-                directive.AddSource(source.Source);
-            }
-            directive.IncludeSelf = element.AllowSelf;
-            return directive;
+            return element.ToDirective(name);
         }
     }
 

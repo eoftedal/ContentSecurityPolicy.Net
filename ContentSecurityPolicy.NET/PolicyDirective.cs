@@ -5,9 +5,16 @@ using System.Text;
 
 namespace ContentSecurityPolicy.Net
 {
+    public enum CspVersion
+    {
+        Ff4To7 = 0,
+        Latest = 1
+    }
+
     public abstract class PolicyDirective
     {
         public string DirectiveName { get; protected set; }
+        public abstract string ToHeaderString(CspVersion version);
     }
 
     public class UriPolicyDirective : PolicyDirective
@@ -19,23 +26,23 @@ namespace ContentSecurityPolicy.Net
         {
             DirectiveName = directiveName;
         }
-        public override string ToString()
+        public override string ToHeaderString(CspVersion version)
         {
             if (HasNoSources()) return "";
             return DirectiveName 
-                + (IncludeSelf ? " 'self'" : "")
+                + (IncludeSelf ? " 'self' " : " ")
                 + ImplodeSources();
         }
 
-        private bool HasNoSources()
+        protected bool HasNoSources()
         {
             return !IncludeSelf && _allowedSourceList.Count() == 0;
         }
 
-        private string ImplodeSources()
+        protected string ImplodeSources()
         {
             if (_allowedSourceList.Count() == 0) return "";
-            return " " + _allowedSourceList
+            return _allowedSourceList
                 .Select(s => s.HostPattern)
                 .Aggregate((s1, s2) => s1 + " " + s2);
         }
@@ -45,23 +52,51 @@ namespace ContentSecurityPolicy.Net
             _allowedSourceList.Add(source);
         }
     }
-
-    public class OptionsDirective : PolicyDirective
+    public class UnsafeInlinePolicyDirective : UriPolicyDirective
     {
-        public bool AllowInlineScript { get; set; }
-        public bool AllowEvalScript { get; set; }
+        public bool UnsafeAllowInline { get; set; }
 
-        public OptionsDirective()
+        public UnsafeInlinePolicyDirective(String name) 
+            :base(name)
         {
-            DirectiveName = "options";
         }
 
-        public override string  ToString()
+        public string ToHeaderString()
         {
- 	        if (!AllowInlineScript && !AllowEvalScript) return "";
+            if (UnsafeAllowInline == false && HasNoSources()) return "";
+            return DirectiveName + " " + 
+                (UnsafeAllowInline ? "'unsafe-inline' " : "")
+                   + ImplodeSources();
+        }
+    }
+
+    public class ScriptPolicyDirective : UnsafeInlinePolicyDirective
+    {
+        public bool UnsafeAllowEval { get; set; }
+
+        public ScriptPolicyDirective() :
+            base("script-src")
+        {
+        }
+
+        public override string ToHeaderString(CspVersion version)
+        {
+            if (version == CspVersion.Ff4To7)
+            {
+                String header = "";
+                if (UnsafeAllowEval || UnsafeAllowInline)
+                {
+                    header = "options " + (UnsafeAllowEval ? "eval-script " : "") +
+                             (UnsafeAllowInline ? "inline-script" : "") + ";";
+                }
+                if (HasNoSources()) return header;
+                return header + DirectiveName + " " + ImplodeSources();
+            }
+            if (!UnsafeAllowInline && !UnsafeAllowEval && HasNoSources()) return "";
             return DirectiveName + " "
-                + (AllowInlineScript ? "disable-xss-protection" : "")
-                + (AllowEvalScript ? "eval-script" : "");
+                   + (UnsafeAllowInline ? "'unsafe-inline' " : "")
+                   + (UnsafeAllowEval ? "'unsafe-eval' " : "")
+                   + ImplodeSources();
         }
     }
 

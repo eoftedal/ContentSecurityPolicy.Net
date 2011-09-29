@@ -31,9 +31,9 @@ namespace ContentSecurityPolicy.Net.Config
             get { return (PolicyDirectiveElement)this["allowedSources"]; }
         }
         [ConfigurationProperty("allowedScriptSources", IsRequired = false)]
-        public PolicyDirectiveElement AllowedScriptSources
+        public ScriptDirectiveElement AllowedScriptSources
         {
-            get { return (PolicyDirectiveElement)this["allowedScriptSources"]; }
+            get { return (ScriptDirectiveElement)this["allowedScriptSources"]; }
         }
         [ConfigurationProperty("allowedImageSources", IsRequired = false)]
         public PolicyDirectiveElement AllowedImageSources
@@ -71,18 +71,14 @@ namespace ContentSecurityPolicy.Net.Config
             get { return (PolicyDirectiveElement)this["allowedFrameAncestors"]; }
         }
         [ConfigurationProperty("allowedStyleSources", IsRequired = false)]
-        public PolicyDirectiveElement AllowedStyleSources
+        public UnsafeInlineDirectiveElement AllowedStyleSources
         {
-            get { return (PolicyDirectiveElement)this["allowedStyleSources"]; }
+            get { return (UnsafeInlineDirectiveElement)this["allowedStyleSources"]; }
         }
 
         public Policy ToPolicy()
         {
             var policy = new Policy {ReportOnlyMode = ReportOnly, ReportUri = ReportUri};
-            if (Options != null)
-            {
-                policy.AddDirective(Options.AsDirective());
-            }
             policy.AddDirective(AllowedSources.AsDirective("default-src"));
             policy.AddDirective(AllowedFontSources.AsDirective("font-src"));
             policy.AddDirective(AllowedFrameAncestors.AsDirective("frame-ancestors"));
@@ -90,9 +86,13 @@ namespace ContentSecurityPolicy.Net.Config
             policy.AddDirective(AllowedImageSources.AsDirective("img-src"));
             policy.AddDirective(AllowedMediaSources.AsDirective("media-src"));
             policy.AddDirective(AllowedObjectSources.AsDirective("object-src"));
-            policy.AddDirective(AllowedScriptSources.AsDirective("script-src"));
             policy.AddDirective(AllowedStyleSources.AsDirective("style-src"));
             policy.AddDirective(AllowedXhrSources.AsDirective("xhr-src"));
+            var scriptDirective = (UriPolicyDirective)AllowedScriptSources.AsDirective("script-src");
+            if (Options != null)
+            {
+            }
+            policy.AddDirective(scriptDirective);
             return policy;
         }
     }

@@ -3,7 +3,6 @@
 		<section name="contentSecurityPolicy" type="ContentSecurityPolicy.Net.Config.ContentSecurityPolicySection"/>
 	</configSections>
 	<contentSecurityPolicy>
-		<options/>
 		<allowedSources allowSelf="true" />
 	</contentSecurityPolicy>
 	<system.web>

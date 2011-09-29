@@ -2,14 +2,16 @@
 <package> 
   <metadata> 
     <id>ContentSecurityPolicy.Net</id> 
-    <version>1.0.5</version> 
+    <version>1.0.6</version> 
     <authors>Erlend Oftedal</authors>
     <owners>Erlend Oftedal</owners>
-    <description>Support for Content Security Policy for ASP.NET applications.</description> 
+    <description>Support for Content Security Policy for ASP.NET applications.
+      New in version 1.0.6 - Supporting the latest version that will also work properly in Chrome
+    </description> 
     <language>en-US</language>
     <licenseUrl>http://www.opensource.org/licenses/lgpl-3.0</licenseUrl>
     <projectUrl>https://github.com/eoftedal/ContentSecurityPolicy.Net</projectUrl>
-    <tags>security csp</tags>
+    <tags>security csp xss</tags>
   </metadata> 
 </package>
 
