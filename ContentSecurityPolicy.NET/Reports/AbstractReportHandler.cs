@@ -20,24 +20,9 @@ namespace ContentSecurityPolicy.Net.Reports
 
         public void ProcessRequest(HttpContext context)
         {
-            if (new Useragent(context.Request.UserAgent).IsFirefox())
-            {
-                var des = new DataContractJsonSerializer(typeof (CspReport));
-                var wrappedReport = des.ReadObject(context.Request.InputStream) as CspReport;
-                HandleReport(wrappedReport.Report);
-            } else
-            {
-                var report = new Report();
-                using(var reader = new StreamReader(context.Request.InputStream))
-                {
-                    var urlencodedReport = reader.ReadToEnd();
-                    var parts = urlencodedReport.Split('&').Select(s => s.Split(new[] {'='}, 2)).ToDictionary(
-                        s => s[0], s => HttpUtility.UrlDecode(s[1]));
-                    report.ViolatedDirective = parts["violated-directive"];
-                    report.Request = parts["document-url"];
-                    HandleReport(report);
-                }
-            }
+            var des = new DataContractJsonSerializer(typeof (CspReport));
+            var wrappedReport = des.ReadObject(context.Request.InputStream) as CspReport;
+            HandleReport(wrappedReport.Report);
         }
         protected abstract void HandleReport(Report report);
     }

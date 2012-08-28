@@ -9,12 +9,12 @@ namespace ContentSecurityPolicy.Net.Reports
     [DataContract]
     public class Report
     {
-        [DataMember(Name="request")]
-        public string Request;
-        [DataMember(Name = "request-headers")]
-        public string RequestHeaders;
+        [DataMember(Name="document-uri")]
+        public String DocumentUri;
+        [DataMember(Name = "referrer")]
+        public string Referrer;
         [DataMember(Name = "blocked-uri")]
-        public string BlockedUri;
+        public String BlockedUri;
         [DataMember(Name = "violated-directive")]
         public string ViolatedDirective;
         [DataMember(Name = "original-policy")]

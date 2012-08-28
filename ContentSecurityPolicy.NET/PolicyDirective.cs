@@ -13,8 +13,22 @@ namespace ContentSecurityPolicy.Net
 
     public abstract class PolicyDirective
     {
-        public string DirectiveName { get; protected set; }
+        private String _directiveName;
+        private String _oldName;
+        public virtual string GetDirectiveName(CspVersion version)
+        {
+            return _directiveName;
+        }
         public abstract string ToHeaderString(CspVersion version);
+        public PolicyDirective(string directiveName)
+        {
+            _directiveName = directiveName;
+        }
+        public PolicyDirective(string directiveName, string oldName)
+        {
+            _directiveName = directiveName;
+            _oldName = oldName;
+        }
     }
 
     public class UriPolicyDirective : PolicyDirective
@@ -22,14 +36,13 @@ namespace ContentSecurityPolicy.Net
         private readonly List<Source> _allowedSourceList = new List<Source>();
         public bool IncludeSelf { get; set; }
 
-        public UriPolicyDirective(string directiveName)
-        {
-            DirectiveName = directiveName;
-        }
+        public UriPolicyDirective(string directiveName) : base(directiveName) { }
+        public UriPolicyDirective(string directiveName, string oldName) : base(directiveName, oldName) { }
+
         public override string ToHeaderString(CspVersion version)
         {
             if (HasNoSources()) return "";
-            return DirectiveName 
+            return GetDirectiveName(version) 
                 + (IncludeSelf ? " 'self' " : " ")
                 + ImplodeSources();
         }
@@ -52,6 +65,8 @@ namespace ContentSecurityPolicy.Net
             _allowedSourceList.Add(source);
         }
     }
+
+
     public class UnsafeInlinePolicyDirective : UriPolicyDirective
     {
         public bool UnsafeAllowInline { get; set; }
@@ -61,10 +76,10 @@ namespace ContentSecurityPolicy.Net
         {
         }
 
-        public string ToHeaderString()
+        public override string ToHeaderString(CspVersion version)
         {
             if (UnsafeAllowInline == false && HasNoSources()) return "";
-            return DirectiveName + " " + 
+            return GetDirectiveName(version) + " " + 
                 (UnsafeAllowInline ? "'unsafe-inline' " : "")
                    + ImplodeSources();
         }
@@ -90,10 +105,10 @@ namespace ContentSecurityPolicy.Net
                              (UnsafeAllowInline ? "inline-script" : "") + ";";
                 }
                 if (HasNoSources()) return header;
-                return header + DirectiveName + " " + ImplodeSources();
+                return header + GetDirectiveName(version) + " " + ImplodeSources();
             }
             if (!UnsafeAllowInline && !UnsafeAllowEval && HasNoSources()) return "";
-            return DirectiveName + " "
+            return GetDirectiveName(version) + " "
                    + (UnsafeAllowInline ? "'unsafe-inline' " : "")
                    + (UnsafeAllowEval ? "'unsafe-eval' " : "")
                    + ImplodeSources();

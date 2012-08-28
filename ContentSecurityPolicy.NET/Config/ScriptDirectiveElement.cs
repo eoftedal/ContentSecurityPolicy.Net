@@ -13,6 +13,12 @@ namespace ContentSecurityPolicy.Net.Config
         {
             get { return (bool)this["unsafeAllowEval"]; }
         }
+        public bool HasUnsafeAllowEval
+        {
+            get { return this["unsafeAllowEval"] != null; }
+        }
+
+
         public override PolicyDirective ToDirective(string name)
         {
             var directive = new ScriptPolicyDirective

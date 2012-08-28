@@ -9,6 +9,12 @@ namespace ContentSecurityPolicy.Net.Config
         {
             get { return (bool)this["unsafeAllowInline"]; }
         }
+        public bool HasUnsafeAllowInline
+        {
+            get { return this["unsafeAllowInline"] != null; }
+        }
+
+
         public override PolicyDirective ToDirective(string name)
         {
             var directive = new UnsafeInlinePolicyDirective(name) {UnsafeAllowInline = UnsafeAllowInline};

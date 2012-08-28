@@ -27,7 +27,12 @@ namespace ContentSecurityPolicy.Net.Config
             var  directive = new UriPolicyDirective(name);
             AddSourcesAndSelf(directive);
             return directive;
-
+        }
+        public virtual PolicyDirective ToAliasedDirective(String name, String oldName)
+        {
+            var directive = new UriPolicyDirective(name, oldName);
+            AddSourcesAndSelf(directive);
+            return directive;
         }
 
         protected void AddSourcesAndSelf(UriPolicyDirective directive)
@@ -44,6 +49,11 @@ namespace ContentSecurityPolicy.Net.Config
         {
             if (element == null) return null;
             return element.ToDirective(name);
+        }
+        public static PolicyDirective AsAliasedDirective(this PolicyDirectiveElement element, string name, string oldName)
+        {
+            if (element == null) return null;
+            return element.ToAliasedDirective(name, oldName);
         }
     }
 

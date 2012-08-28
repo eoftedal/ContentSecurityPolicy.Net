@@ -2,11 +2,13 @@
 <package> 
   <metadata> 
     <id>ContentSecurityPolicy.Net</id> 
-    <version>1.0.6</version> 
+    <version>1.0.10</version> 
     <authors>Erlend Oftedal</authors>
     <owners>Erlend Oftedal</owners>
     <description>Support for Content Security Policy for ASP.NET applications.
-      New in version 1.0.6 - Supporting the latest version that will also work properly in Chrome
+      New in version 1.0.10 - Full support for the 1.0 version of CSP. Includes some breaking config changes in preparation for the 1.0.
+	  "options" is no longer available. The options have now been moved to allowedScriptSources unsafeAllowEval and unsafeAllowInline
+	  allowedXhrSources is now allowedConnectSources.
     </description> 
     <language>en-US</language>
     <licenseUrl>http://www.opensource.org/licenses/lgpl-3.0</licenseUrl>

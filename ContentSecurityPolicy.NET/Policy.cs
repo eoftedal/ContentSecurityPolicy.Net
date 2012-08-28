@@ -51,17 +51,14 @@ namespace ContentSecurityPolicy.Net
         public string GetHeaderValue(string useragent)
         {
             var agent = new Useragent(useragent);
+            CspVersion version = agent.IsFirefox() ? CspVersion.Ff4To7 : CspVersion.Latest;
             return _policyDirectives
-                .OrderBy(p => p.DirectiveName == "options" ? "1" : ("2" + p.DirectiveName))
-                .Select(p => AsString(p, agent))
+                .OrderBy(p => p.GetDirectiveName(version) == "options" ? "1" : ("2" + p.GetDirectiveName(version)))
+                .Select(p => p.ToHeaderString(version))
                 .Where(s => !string.IsNullOrEmpty(s))
                 .Aggregate((s1, s2) => s1 + "; " + s2)
                 + ReportUriPart;
 
-        }
-        private static string AsString(PolicyDirective directive, Useragent useragent)
-        {
-            return directive.ToHeaderString(useragent.IsFirefox() ? CspVersion.Ff4To7 : CspVersion.Latest);
         }
 
         
